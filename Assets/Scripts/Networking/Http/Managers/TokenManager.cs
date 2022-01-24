@@ -13,6 +13,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
     {
         public ScreenManager screenManager;
         public WarningManager warningManager;
+        public UserManager userManager;
 
         string tokenPrefKey = "tokenPrefKey";
         string token = "";
@@ -66,12 +67,13 @@ namespace BattleTacticsOnline.Networking.Http.Managers
                     new Dictionary<string, string> { { "id", tokenPayload.id }, },
                     new Dictionary<string, string> { { HttpConstants.TOKEN_KEY, HttpConstants.TOKEN_KEY_VALUE}, },
                     this);
+
+                    StartCoroutine(req.Post());
                 }
                 else
                 {
                     // get user information
-                    Debug.Log("GetUser Information");
-                    //screenManager.ChangeScreen(ScreenTypes.HOME); // this should calling from user manager
+                    userManager.GetUserInformation(token);
                 }
             }
             else
