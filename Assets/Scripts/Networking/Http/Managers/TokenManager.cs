@@ -46,7 +46,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         void LoadTokenFromDevice()
         {
             // show loading panel
-            screenManager.ShowLoadingPanel();
+            screenManager.ChangeScreen(ScreenTypes.LOADING);
             // read token from device
             string token = PlayerPrefs.GetString(tokenPrefKey);
             this.token = token;
@@ -71,13 +71,13 @@ namespace BattleTacticsOnline.Networking.Http.Managers
                 {
                     // get user information
                     Debug.Log("GetUser Information");
-                    screenManager.HideLoginPanel();
+                    //screenManager.ChangeScreen(ScreenTypes.HOME); // this should calling from user manager
                 }
             }
             else
             {
                 // show login panel
-                screenManager.ShowLoginPanel();
+                screenManager.ChangeScreen(ScreenTypes.LOGIN);
             }
         }
 

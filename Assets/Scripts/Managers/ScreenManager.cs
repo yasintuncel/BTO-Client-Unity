@@ -1,29 +1,42 @@
 ﻿// created by yasintuncel
+using System;
 using UnityEngine;
 
 namespace BattleTacticsOnline.Managers
 {
+    public enum ScreenTypes
+    {
+        NONE,
+        LOGIN,
+        LOADING,
+        HOME
+    }
+
+    [Serializable]
+    public class ScreenObject
+    {
+        public ScreenTypes screenType;
+        public GameObject screen;
+    }
+
     public class ScreenManager : MonoBehaviour
     {
-        public GameObject pnlLogin;
-        public GameObject pnlLoadging;
+        public ScreenObject[] screens;
 
-        public void ShowLoadingPanel()
-        {
-            if (!pnlLoadging.activeSelf)
-                pnlLoadging.SetActive(true);
-        }
+        private ScreenTypes previousScreenType = ScreenTypes.NONE;
 
-        public void ShowLoginPanel()
+        public void ChangeScreen(ScreenTypes type)
         {
-            if (!pnlLogin.activeSelf)
-                pnlLogin.SetActive(true);
-            pnlLoadging.SetActive(false);
-        }
-        public void HideLoginPanel()
-        {
-            pnlLogin.SetActive(false);
-            pnlLoadging.SetActive(false);
+            if (previousScreenType == type)
+                return;
+
+            foreach (ScreenObject screen in screens)
+            {
+                if (screen.screenType == type)
+                    screen.screen.SetActive(true);
+                else
+                    screen.screen.SetActive(false);
+            }
         }
     }
 }

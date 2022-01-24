@@ -14,6 +14,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         public TokenManager tokenManager;
         public WarningManager warningManager;
         public ScreenManager screenManager;
+        [Space]
         public Button btnLogin;
         public InputField fieldNickName;
 
@@ -30,7 +31,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
                 new Dictionary<string, string> { { "nickName", nickName }, },
                 new Dictionary<string, string> { { HttpConstants.REGISTER_KEY, HttpConstants.REGISTER_KEY_VALUE }, },
                 this);
-
+            screenManager.ChangeScreen(ScreenTypes.LOADING);
             StartCoroutine(req.Post());
         }
 
@@ -39,7 +40,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         {
             Debug.LogError(error);
             warningManager.ShowWarning("Error on Login", error);
-            screenManager.HideLoginPanel();
+            screenManager.ChangeScreen(ScreenTypes.LOGIN);
         }
 
         public void OnRequestSuccess(Token token)
