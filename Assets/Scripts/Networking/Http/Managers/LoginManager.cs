@@ -1,4 +1,5 @@
 ﻿// created by yasintuncel
+using BattleTacticsOnline.Managers;
 using BattleTacticsOnline.Networking.Http;
 using BattleTacticsOnline.Networking.Http.Infrastructure;
 using BattleTacticsOnline.Networking.Http.Models;
@@ -6,10 +7,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BattleTacticsOnline.Managers
+namespace BattleTacticsOnline.Networking.Http.Managers
 {
     public class LoginManager : MonoBehaviour, IRequest<Token>
     {
+        public TokenManager tokenManager;
+        public WarningManager warningManager;
+        public ScreenManager screenManager;
         public Button btnLogin;
         public InputField fieldNickName;
 
@@ -34,11 +38,16 @@ namespace BattleTacticsOnline.Managers
         public void OnRequestError(string error)
         {
             Debug.LogError(error);
+            warningManager.ShowWarning("Error on Login", error);
+            screenManager.HideLoginPanel();
         }
 
         public void OnRequestSuccess(Token token)
         {
             Debug.Log(token.token);
+            // save token
+            tokenManager.SaveToken(token);
+
         }
         #endregion
     }
