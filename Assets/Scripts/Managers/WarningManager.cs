@@ -18,7 +18,6 @@ namespace BattleTacticsOnline.Managers
             txtTitle.text = title;
             txtDescription.text = description;
             StartCoroutine(Showpanel());
-
         }
 
         IEnumerator Showpanel()
