@@ -25,14 +25,17 @@ namespace BattleTacticsOnline.Networking.Http.Managers
 
         private void OnClickLogin()
         {
-            string nickName = fieldNickName.text;
-
-            HttpRequest<Token> req = new HttpRequest<Token>(HttpConstants.REGISTER_AS_GUEST,
-                new Dictionary<string, string> { { "nickName", nickName }, },
-                new Dictionary<string, string> { { HttpConstants.REGISTER_KEY, HttpConstants.REGISTER_KEY_VALUE }, },
-                this);
             screenManager.ChangeScreen(ScreenTypes.LOADING);
-            StartCoroutine(req.Post());
+
+            string nickName = fieldNickName.text;
+            
+            HttpModel<Token> tokenHttpModel = new HttpModel<Token>{
+                url = HttpConstants.REGISTER_AS_GUEST,
+                headerParams = new Dictionary<string, string> { { HttpConstants.REGISTER_KEY, HttpConstants.REGISTER_KEY_VALUE }, },
+                postParams = new Dictionary<string, string> { { "nickName", nickName }, },
+                iRequest = this
+            };
+            StartCoroutine(ConstantFunctions.Post(tokenHttpModel));
         }
 
         #region IRequest
