@@ -13,9 +13,10 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         public ScreenManager screenManager;
         public DUserLogin dUserLogin;
         User user;
-
+        string token;
         public void GetUserInformation(string token)
         {
+            this.token = token;
             // get user information
             HttpRequest<User> req = new HttpRequest<User>(HttpConstants.USER_INFORMATION,
             new Dictionary<string, string> { },
@@ -29,6 +30,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         public void OnRequestError(string error)
         {
             Debug.LogError(error);
+            GetUserInformation(token);
         }
 
         public void OnRequestSuccess(User user)
