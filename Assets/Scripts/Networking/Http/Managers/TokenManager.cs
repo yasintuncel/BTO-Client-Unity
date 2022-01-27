@@ -60,15 +60,17 @@ namespace BattleTacticsOnline.Networking.Http.Managers
                 DateTime expiredDate = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(tokenPayload.exp);
 
                 double diff = expiredDate.Subtract(DateTime.UtcNow).TotalHours;
-                if( diff < 50 )
+                if (diff < 50)
                 {
                     // refresh token
-                        HttpRequest<Token> req = new HttpRequest<Token>(HttpConstants.TOKEN_REFRESH,
-                    new Dictionary<string, string> { { "id", tokenPayload.id }, },
-                    new Dictionary<string, string> { { HttpConstants.TOKEN_KEY, HttpConstants.TOKEN_KEY_VALUE}, },
-                    this);
-
-                    StartCoroutine(req.Post());
+                    HttpModel<Token> tokenHttpModel = new HttpModel<Token>
+                    {
+                        url = HttpConstants.TOKEN_REFRESH,
+                        headerParams = new Dictionary<string, string> { { HttpConstants.TOKEN_KEY, HttpConstants.TOKEN_KEY_VALUE }, },
+                        postParams = new Dictionary<string, string> { { "id", tokenPayload.id } },
+                        iRequest = this
+                    };
+                    StartCoroutine(ConstantFunctions.Post(tokenHttpModel));
                 }
                 else
                 {

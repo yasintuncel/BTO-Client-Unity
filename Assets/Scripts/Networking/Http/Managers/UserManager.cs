@@ -18,12 +18,15 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         {
             this.token = token;
             // get user information
-            HttpRequest<User> req = new HttpRequest<User>(HttpConstants.USER_INFORMATION,
-            new Dictionary<string, string> { },
-            new Dictionary<string, string> { { HttpConstants.AUTH_KEY, token }, },
-            this);
 
-            StartCoroutine(req.Post());
+            HttpModel<User> tokenHttpModel = new HttpModel<User>
+            {
+                url = HttpConstants.USER_INFORMATION,
+                headerParams = new Dictionary<string, string> { { HttpConstants.AUTH_KEY, token }, },
+                postParams = new Dictionary<string, string> { },
+                iRequest = this
+            };
+            StartCoroutine(ConstantFunctions.Post(tokenHttpModel));
         }
 
         #region Irequest
