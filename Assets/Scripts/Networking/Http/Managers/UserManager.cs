@@ -1,5 +1,7 @@
 ﻿// created by yasintuncel
+using BattleTacticsOnline.Managers;
 using BattleTacticsOnline.Networking.Http.Infrastructure;
+using BattleTacticsOnline.Networking.Http.Infrastructure.Delegates;
 using BattleTacticsOnline.Networking.Http.Models;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +10,8 @@ namespace BattleTacticsOnline.Networking.Http.Managers
 {
     public class UserManager : MonoBehaviour, IRequest<User>
     {
+        public ScreenManager screenManager;
+        public DUserLogin dUserLogin;
         User user;
 
         public void GetUserInformation(string token)
@@ -29,7 +33,9 @@ namespace BattleTacticsOnline.Networking.Http.Managers
 
         public void OnRequestSuccess(User user)
         {
+            screenManager.ChangeScreen(ScreenTypes.HOME);
             this.user = user;
+            dUserLogin?.Invoke(user);
         }
         #endregion
     }
