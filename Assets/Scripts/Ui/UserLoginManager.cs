@@ -33,7 +33,7 @@ namespace BattleTacticsOnline.Ui
             txtName.text = user.nickName;
             txtLevel.text = "" + user.level.level;
             txtGold.text = "" + user.gold.amount;
-            GetProfilePicture(HttpConstants.IDENTICONS + "/" + user.identicon + ".png");
+            _ = GetProfilePicture(HttpConstants.IDENTICONS + "/" + user.identicon + ".png");
         }
 
         async Task GetProfilePicture(string url)

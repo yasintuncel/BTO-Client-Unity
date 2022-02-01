@@ -12,7 +12,7 @@ namespace BattleTacticsOnline.Networking
 {
     public static class ConstantFunctions
     {
-        static IEnumerator Post<T>(HttpModel<T> model)
+        public static IEnumerator Post<T>(HttpModel<T> model)
         {
             UnityWebRequest unityWebRequest = UnityWebRequest.Post(model.url, model.postParams);
             foreach (var item in model.headerParams)
