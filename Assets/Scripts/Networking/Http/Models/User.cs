@@ -11,6 +11,7 @@ namespace BattleTacticsOnline.Networking.Http.Models
         public string nickName;
         public string uid;
         public string identicon;
+        public long createdAt;
 
         public Activity activitiy;
         public Gold gold;
