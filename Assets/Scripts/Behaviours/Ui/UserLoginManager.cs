@@ -1,6 +1,7 @@
 ﻿// created by yasintuncel
 using BattleTacticsOnline.Networking;
 using BattleTacticsOnline.Networking.Http;
+using BattleTacticsOnline.Networking.Http.Infrastructure.Delegates;
 using BattleTacticsOnline.Networking.Http.Managers;
 using BattleTacticsOnline.Networking.Http.Models;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace BattleTacticsOnline.Ui
 {
-    public class UserLoginManager : MonoBehaviour
+    public class UserLoginManager : MonoBehaviour, IUserLogin
     {
         public UserManager userManager;
         [Space]
@@ -28,14 +29,6 @@ namespace BattleTacticsOnline.Ui
             userManager.dUserLogin -= OnUserLogin;
         }
 
-        void OnUserLogin(User user)
-        {
-            txtName.text = user.nickName;
-            txtLevel.text = "" + user.level.level;
-            txtGold.text = "" + user.gold.amount;
-            _ = GetProfilePicture(HttpConstants.IDENTICONS + "/" + user.identicon + ".png");
-        }
-
         async Task GetProfilePicture(string url)
         {
              Sprite sp = await ConstantFunctions.GetRemoteTexture(url);
@@ -45,5 +38,19 @@ namespace BattleTacticsOnline.Ui
                 imgProfile.sprite = sp;
             }
         }
+
+        public void OnUserLogin(User user)
+        {
+            txtName.text = user.nickName;
+            txtLevel.text = "" + user.level.level;
+            txtGold.text = "" + user.gold.amount;
+            _ = GetProfilePicture(HttpConstants.IDENTICONS + "/" + user.identicon + ".png");
+        }
+
+        public void OnUserLogout()
+        {
+            Debug.Log("user logout");
+        }
+
     }
 }
