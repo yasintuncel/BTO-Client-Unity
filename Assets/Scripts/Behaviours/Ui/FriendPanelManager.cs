@@ -15,6 +15,7 @@ namespace BattleTacticsOnline.Behaviours.Ui
         public Text txtPlayCount;
         [Space]
         public Image imgProfile;
+        public Image border;
         [Space]
         public Button btnOptions;
         public Button btnMessage;
@@ -33,11 +34,19 @@ namespace BattleTacticsOnline.Behaviours.Ui
 
         public void SetFriend(Friend friend)
         {
+            gameObject.name = friend.user.nickName;
+
             txtName.text = friend.user.nickName;
             txtLevel.text = "" + friend.user.level.level;
             txtGold.text = "" + friend.user.gold.amount;
             txtPlayCount.text = "" + friend.playCount;
-            Debug.Log(JsonUtility.ToJson(friend));
+            if (friend.user.activity.isOnline)
+            {
+                border.color = new Color(0f, 255f, 0f, 255f);
+                transform.SetAsFirstSibling();
+            }
+            //10FF00
+            //Debug.Log(JsonUtility.ToJson(friend));
         }
         private void OnClickOptions()
         {

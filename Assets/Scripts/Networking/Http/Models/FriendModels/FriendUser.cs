@@ -11,7 +11,7 @@ namespace BattleTacticsOnline.Networking.Http.Models.FriendModels
         public string nickName;
         public string identicon;
 
-        public Activity activitiy;
+        public Activity activity;
         public Gold gold;
         public Level level;
     }

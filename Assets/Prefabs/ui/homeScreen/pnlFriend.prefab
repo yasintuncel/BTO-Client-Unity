@@ -494,6 +494,7 @@ MonoBehaviour:
   txtGold: {fileID: 2327027132408063271}
   txtPlayCount: {fileID: 4376340903597282538}
   imgProfile: {fileID: 2327027134147904010}
+  border: {fileID: 2327027133174435308}
   btnOptions: {fileID: 2327027134117607323}
   btnMessage: {fileID: 3097680465993179698}
   btnPlay: {fileID: 457090405269630444}
