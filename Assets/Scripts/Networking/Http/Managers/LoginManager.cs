@@ -1,6 +1,5 @@
 ﻿// created by yasintuncel
 using BattleTacticsOnline.Managers;
-using BattleTacticsOnline.Networking.Http;
 using BattleTacticsOnline.Networking.Http.Infrastructure;
 using BattleTacticsOnline.Networking.Http.Models;
 using System.Collections.Generic;
