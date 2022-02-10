@@ -2,6 +2,7 @@
 using BattleTacticsOnline.Managers;
 using BattleTacticsOnline.Networking.Http.Infrastructure;
 using BattleTacticsOnline.Networking.Http.Models;
+using BattleTacticsOnline.System.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,6 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         public UserManager userManager;
 
         string tokenPrefKey = "tokenPrefKey";
-        string token = "";
         TokenPayload tokenPayload;
 
         void Awake()
@@ -41,7 +41,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
         public void SaveToken(Token token)
         {
             // save token
-            PlayerPrefs.SetString(tokenPrefKey, token.token);
+            PlayerPrefs.SetString(tokenPrefKey, EncryptionHelper.Encrypt(token.token));
             LoadTokenFromDevice();
         }
         void LoadTokenFromDevice()
@@ -49,8 +49,7 @@ namespace BattleTacticsOnline.Networking.Http.Managers
             // show loading panel
             screenManager.ChangeScreen(ScreenTypes.LOADING);
             // read token from device
-            string token = PlayerPrefs.GetString(tokenPrefKey);
-            this.token = token;
+            string token = EncryptionHelper.Decrypt(PlayerPrefs.GetString(tokenPrefKey, "nullnullnullnullnullnullnullnullnullnull"));
             // parse token
             tokenPayload = ParseToken(token);
 
